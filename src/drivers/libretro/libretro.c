@@ -1490,7 +1490,6 @@ void retro_set_environment(retro_environment_t cb)
    static const struct retro_variable vars[] = {
       { "fceumm_region", "Region Override; Auto|NTSC|PAL|Dendy" },
       { "fceumm_aspect", "Preferred aspect ratio; 8:7 PAR|4:3" },
-      { "fceumm_palette", "Color Palette; default|asqrealc|nintendo-vc|rgb|yuv-v3|unsaturated-final|sony-cxa2025as-us|pal|bmf-final2|bmf-final3|smooth-fbx|composite-direct-fbx|pvm-style-d93-fbx|ntsc-hardware-fbx|nes-classic-fbx-fs|nescap|wavebeam|raw|custom" },
       { "fceumm_up_down_allowed", "Allow Opposing Directions; disabled|enabled" },
 #ifdef PSP
       { "fceumm_overscan", "Crop Overscan; enabled|disabled" },
@@ -1668,18 +1667,10 @@ static void retro_set_custom_palette(void)
 {
    uint8_t i,r,g,b;
 
-   ipalette = 0;
-   use_raw_palette = false;
-
-   if (!current_palette || current_palette > MAXPAL || (GameInfo->type == GIT_VSUNI))
-   {
-      if (current_palette > MAXPAL && GameInfo->type != GIT_VSUNI)
-      {
-         if (external_palette_exist)
+   if (external_palette_exist)
          {
             ipalette = 1;
          }
-      }
 
       FCEU_ResetPalette(); /* Do palette reset. Priority will be:
                             * -ipalette   : sets external palette
