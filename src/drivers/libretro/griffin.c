@@ -2,7 +2,7 @@
 
 #include "drivers/libretro/libretro.c"
 
-#ifndef STATIC_LINKING
+#ifdef STATIC_LINKING
 #include "drivers/libretro/libretro-common/streams/memory_stream.c"
 #endif
 
