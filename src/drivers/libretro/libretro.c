@@ -1707,11 +1707,13 @@ static void retro_set_custom_palette(void)
 
    for ( i = 0; i < 256; i++ )
    {
-      palo[i].r = palettes[current_palette-1].data[i] >> 16;
-      palo[i].g = ( palettes[current_palette-1].data[i] & 0xff00 ) >> 8;
-      palo[i].b = ( palettes[current_palette-1].data[i] & 0xff );
-     WritePalette();
-
+      r = palettes[current_palette-1].data[i] >> 16;
+      g = ( palettes[current_palette-1].data[i] & 0xff00 ) >> 8;
+      b = ( palettes[current_palette-1].data[i] & 0xff );
+      FCEUD_SetPalette( i, r, g, b);
+      FCEUD_SetPalette( i, r, g, b);
+      FCEUD_SetPalette( i, r, g, b);
+      FCEUD_SetPalette( i, r, g, b);
    }
 }
 
