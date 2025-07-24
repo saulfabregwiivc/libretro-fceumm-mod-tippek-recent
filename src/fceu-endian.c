@@ -21,7 +21,6 @@
 /*  Contains file I/O functions that write/read data    */
 /*  LSB first.              */
 
-#include <stdio.h>
 #include "fceu-memory.h"
 #include "fceu-types.h"
 #include "fceu-endian.h"
@@ -31,7 +30,10 @@ void FlipByteOrder(uint8 *src, uint32 count)
    uint8 *start = src;
    uint8 *end = src + count - 1;
 
-   while(start < end)
+   if ((count & 1) || !count)
+      return;     /* This shouldn't happen. */
+
+   while (count--)
    {
       uint8 tmp;
 
@@ -117,7 +119,7 @@ void FCEU_en32lsb(uint8 *buf, uint32 morp)
    buf[3] = morp >> 24;
 }
 
-uint32 FCEU_de32lsb(uint8 *morp)
+uint32 FCEU_de32lsb(const uint8 *morp)
 {
    return(morp[0] | (morp[1] << 8) | (morp[2] << 16) | (morp[3] << 24));
 }
